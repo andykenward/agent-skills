@@ -42,10 +42,19 @@ dependencies:
 | Skill | Description |
 | ----- | ----------- |
 | [example-skill](skills/example-skill/SKILL.md) | Placeholder that confirms installs work |
+| [tiger-style](skills/tiger-style/SKILL.md) | Write and review code in TigerBeetle's TigerStyle, in any language |
 
 ## Development
 
 The repo has a [dev container](.devcontainer/devcontainer.json) from [andykenward/devcontainers-templates](https://github.com/andykenward/devcontainers-templates) (`dev` template), with Node, the GitHub CLI and Claude Code. Open it in VS Code with **Dev Containers: Reopen in Container**, or run `devcontainer up --workspace-folder .`.
+
+Tools are pinned in [mise.toml](mise.toml) and [mise.lock](mise.lock), and the dev container installs them on create. Run the checks CI runs with:
+
+```bash
+mise run lint
+```
+
+That validates every skill against the [Agent Skills spec](https://agentskills.io), checks that both `npx skills` and `apm` find every skill, checks the table above lists them all, and lints the workflows with actionlint and zizmor.
 
 ## Adding a skill
 

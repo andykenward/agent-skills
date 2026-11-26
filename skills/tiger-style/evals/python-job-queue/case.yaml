@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: python-job-queue
+expected_outcome: |
+  job_queue.py with a bounded queue and bounded retries, dense assertions on arguments and
+  invariants, no recursion, every error handled, units-last names, and functions under 70 lines.

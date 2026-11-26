@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: zig-buffer-copy
+expected_outcome: |
+  copy.zig with a copy function that asserts bounds and non-overlap, uses source/target naming,
+  avoids usize for non-index values where it can, and has a test covering valid and invalid ranges.
