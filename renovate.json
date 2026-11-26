@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Only what Dependabot (.github/dependabot.yml) can't update: the repo's mise tools and the mise version CI installs.",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["mise", "github-actions"],
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "description": "Repo tooling in mise.toml (Renovate regenerates mise.lock).",
+      "matchManagers": ["mise"],
+      "semanticCommitType": "chore",
+      "semanticCommitScope": "deps"
+    },
+    {
+      "description": "Dependabot bumps the actions themselves; Renovate only takes the mise version passed to jdx/mise-action.",
+      "matchManagers": ["github-actions"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["jdx/mise"],
+      "matchDatasources": ["github-release-attachments"],
+      "enabled": true,
+      "semanticCommitType": "ci",
+      "semanticCommitScope": "deps",
+      "commitMessageTopic": "mise in CI"
+    }
+  ]
+}

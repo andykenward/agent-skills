@@ -1,0 +1,42 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+# Tools for working on this repo. Installed by `mise install` (runs in postCreate).
+#
+# Versions are exact so Renovate (renovate.json) can bump them: one PR per tool,
+# with mise.lock (URLs and checksums) regenerated, 7 days after each release.
+
+# mise.lock is lockfile format 4, which older mise can't read.
+min_version = "2026.11.1"
+
+[settings]
+lockfile = true
+lockfile_platforms = ["linux-x64", "linux-arm64"]
+# Install only what mise.lock records. To add a tool, add it under [tools],
+# then run `mise lock` and `mise install`.
+locked = true
+# Plugin backends run community install scripts; this repo doesn't use them.
+disable_backends = ["asdf", "vfox"]
+
+[tools]
+# The two installers the skills are published for: they must both discover every skill.
+node = "26.13.1"
+"npm:skills" = "1.9.0"
+"github:microsoft/apm" = "0.38.1"
+# Python runs skills-ref and the skill-creator scripts; uv installs pipx tools.
+python = "3.13.18"
+uv = "0.13.10"
+# Agent Skills reference validator (`agentskills validate`): frontmatter, naming, layout.
+"pipx:skills-ref" = "0.1.1"
+# Zig compiles the tiger-style eval outputs.
+zig = "0.17.1"
+actionlint = "1.7.12"
+zizmor = "1.33.1"
+
+[tasks.lint]
+description = "Validate every skill, check both installers find them and the README lists them, and lint the workflows"
+run = [
+  "for skill in skills/*/; do agentskills validate \"$skill\" || exit 1; done",
+  ".github/scripts/check-installers.sh",
+  ".github/scripts/check-readme-skills.sh",
+  "actionlint",
+  "zizmor .",
+]

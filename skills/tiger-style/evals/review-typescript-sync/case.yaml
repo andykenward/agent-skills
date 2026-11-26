@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: review-typescript-sync
+expected_outcome: |
+  review.md that flags the recursion, the unbounded loop and queue, the swallowed error, the
+  missing assertions, the over-long function and the abbreviated / unit-first names, each with
+  a location and a fix, grouped by safety, performance and developer experience. sync.ts unchanged.
+context:
+  scaffold_script: place-files.sh
