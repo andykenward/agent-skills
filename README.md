@@ -11,7 +11,7 @@ My agent skills, in the [Agent Skills](https://agentskills.io) format. Each skil
 npx skills add andykenward/agent-skills
 
 # One skill, one agent, global
-npx skills add andykenward/agent-skills --skill example-skill -a claude-code -g
+npx skills add andykenward/agent-skills --skill tiger-style -a claude-code -g
 
 # List what's available
 npx skills add andykenward/agent-skills --list
@@ -24,7 +24,7 @@ npx skills add andykenward/agent-skills --list
 apm install andykenward/agent-skills
 
 # One skill (saved to your apm.yml)
-apm install andykenward/agent-skills --skill example-skill
+apm install andykenward/agent-skills --skill tiger-style
 ```
 
 Or declare it in your project's `apm.yml`:
@@ -34,14 +34,13 @@ dependencies:
   apm:
     - git: andykenward/agent-skills
       skills:
-        - example-skill
+        - tiger-style
 ```
 
 ## Skills
 
 | Skill | Description |
 | ----- | ----------- |
-| [example-skill](skills/example-skill/SKILL.md) | Placeholder that confirms installs work |
 | [tiger-style](skills/tiger-style/SKILL.md) | Write and review code in TigerBeetle's TigerStyle, in any language |
 
 ## Development
