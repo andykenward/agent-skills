@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
+#
+# Keeps the GitHub Actions (pinned to commit hashes) current. Renovate
+# (renovate.json) covers what Dependabot can't read: mise.toml and the mise
+# version CI installs.
+#
+# The cooldown waits a week after a release before proposing it, so a
+# compromised or broken release has time to be caught and pulled.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "ci"
+
+  # Dev container image in .devcontainer/devcontainer.json.
+  - package-ecosystem: devcontainers
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "chore"

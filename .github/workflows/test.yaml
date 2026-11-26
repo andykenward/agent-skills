@@ -1,0 +1,38 @@
+name: Test
+
+# Validates every skill against the Agent Skills spec, checks that both
+# installers (vercel-labs/skills and microsoft/apm) discover them all, and
+# lints the workflows. Runs the same `mise run lint` task as locally.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to a PR cancels that PR's run still in progress: only the newest
+# commit's checks count. Other runs (main, manual) each get their own group.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Installs the tools in mise.toml, exactly as mise.lock records them.
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          version: 2026.11.8 # bumped by Renovate (renovate.json)
+
+      # GH_TOKEN turns on zizmor's online audits (known-vulnerable actions etc.).
+      - run: mise run lint
+        env:
+          GH_TOKEN: ${{ github.token }}
