@@ -43,6 +43,10 @@ dependencies:
 | ----- | ----------- |
 | [example-skill](skills/example-skill/SKILL.md) | Placeholder that confirms installs work |
 
+## Development
+
+The repo has a [dev container](.devcontainer/devcontainer.json) from [andykenward/devcontainers-templates](https://github.com/andykenward/devcontainers-templates) (`dev` template), with Node, the GitHub CLI and Claude Code. Open it in VS Code with **Dev Containers: Reopen in Container**, or run `devcontainer up --workspace-folder .`.
+
 ## Adding a skill
 
 ```bash
